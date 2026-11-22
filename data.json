@@ -1,6 +1,6 @@
 {
   "source": "https://t.me/s/slay_awards",
-  "updatedAt": "2026-11-22T15:19:01+00:00",
+  "updatedAt": "2026-11-22T16:10:45+00:00",
   "ballots": [
     {
       "id": "9443",
@@ -718,6 +718,31 @@
         "Ютубер года": "Nowkie",
         "Лучший Minecraft-стример": "5opka",
         "Человек-мем года": "Zloy"
+      }
+    },
+    {
+      "id": "9493",
+      "author": "DinaBlin",
+      "date": "2026-11-22",
+      "publishedAt": "2026-11-22T16:02:01+00:00",
+      "postUrl": "https://t.me/slay_awards/9493",
+      "votes": {
+        "SLAY King": "T2x2",
+        "SLAY Queen": "ByOwl",
+        "Лучший CS-стример": "Korya",
+        "Лучший Dota-стример": "Dread",
+        "Лучший multigaming-стример": "Quickhuntik",
+        "NEXT GEN": "Андрей Гайдулян",
+        "Лучший IRL-стример": "Leva2k",
+        "Проект года на Twitch": "Киногонка 5",
+        "Аудитория года": "5opka",
+        "Пара года": "Gaechka & Strogo",
+        "Завоз года": "Я клубника, ты клубника» под Jony",
+        "Трек года": "Даймондс — Ekatze",
+        "Косплеер года": "ByOwl",
+        "Ютубер года": "Qewbite",
+        "Лучший Minecraft-стример": "Melharucos",
+        "Человек-мем года": "Gaechka"
       }
     }
   ]
