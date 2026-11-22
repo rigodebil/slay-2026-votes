@@ -182,6 +182,7 @@
         if(normalized==='выживание в африке'||/^африка\s+(?:leva2k\s+и\s+guacamolemolly|guacamolemolly\s+и\s+leva2k)$/.test(normalized))return 'Выживание в Африке';
         if(/^(?:betboom\s+)?медиа класико$/i.test(clean))return 'BetBoom Медиа Класико';
       }
+      if(category==='Завоз года'&&clean.toLocaleLowerCase('ru-RU')==='мозгодел прицепился')return '5opka и мозгоеб';
       return clean;
     }
     function formatDateTime(publishedAt,fallback){
