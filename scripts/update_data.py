@@ -1,5 +1,5 @@
 import json,re,sys,time,unicodedata
-from datetime import datetime,timezone
+from datetime import datetime,timedelta,timezone
 from pathlib import Path
 import requests
 from bs4 import BeautifulSoup
@@ -20,73 +20,116 @@ def canon(c,v):
   q=re.findall(r'[«“\"](.*?)[»”\"]',v); title=clean(q[-1] if q else v); before=v[:v.rfind(q[-1])] if q else '';after=v[v.rfind(q[-1])+len(q[-1])+1:] if q else '';m=re.search(r'от\s+(.+)$',after);artist=clean(m.group(1)) if m else clean(before.split('—')[0]).strip(' —');return f'{title} — {artist}' if artist else title
  return clean(v)
 def extract(text):
- out={}
- for chunk in text.split('•')[1:]:
-  m=re.match(r'\s*(.+?)\s*—\s*(.*)$',chunk,re.S)
-  if not m:continue
-  c=m.group(1).strip();v=m.group(2).strip()
-  if c not in CATS:continue
-  v=re.sub(r'🤩\s*Проголосовать.*$','',v,flags=re.S);v=re.sub(r'🤩\s*Купить билет.*$','',v,flags=re.S);v=v.strip().rstrip(';').strip()
-  if v and 'не проголосовал' not in v.casefold():out[c]=canon(c,v)
- return out
+    out = {}
+    for chunk in text.split('•')[1:]:
+        match = re.match(r'\s*(.+?)\s*—\s*(.*)$', chunk, re.S)
+        if not match:
+            continue
+        category = match.group(1).strip()
+        value = match.group(2).strip()
+        if category not in CATS:
+            continue
+        value = re.sub(r'🤩\s*Проголосовать.*$', '', value, flags=re.S)
+        value = re.sub(r'🤩\s*Купить билет.*$', '', value, flags=re.S)
+        value = value.strip().rstrip(';').strip()
+        if not value or re.search(r'\bне\s+(?:про)?голосовал(?:а|и)?\b', value, re.I):
+            out[category] = ''
+        else:
+            out[category] = canon(category, value)
+    return out
+
+
 def author(text):
- triggers=r'(?:один из первых|показала|показал|продолжает|подключился|поделился|проголосовал|выбрала|распределил|отдал(?:а)?|назвал|не остался|определился|присоединилась|сделал|продемонстрировал|не изменяет|решил|голосует|осталась|поддержала|наблюдает|оставил|пообещал)'
- m=re.search(r'([^\W_][\w.-]*)\s+'+triggers,text,re.I|re.UNICODE)
- return m.group(1) if m else 'Автор не указан'
+    triggers = r'(?:один из первых|показал[аи]?|продолжает|подключил(?:ся|ась)?|поделил(?:ся|ась)?|проголосовал(?:а|и)?|выбра(?:л|ла|ли)|распределил(?:а|и)?|отдал(?:а|и)?|назвал(?:а|и)?|не остал(?:ся|ась|ись)|определил(?:ся|ась)?|присоединил(?:ся|ась)?|сделал(?:а|и)?|продемонстрировал(?:а|и)?|не изменяет|решил(?:а|и)?|голосует|остал(?:ся|ась|ись)|поддержал(?:а|и)?|наблюдает|оставил(?:а|и)?|пообещал(?:а|и)?)'
+    normalized = clean(text)
+    match = re.match(r'^\s*(@?[\w][\w.-]*)\s+' + triggers + r'\b', normalized, re.I | re.UNICODE)
+    return match.group(1).lstrip('@') if match else ''
+
+
 def main():
- d=json.loads(DATA.read_text(encoding='utf-8'))
- def in_scope(ballot):
-  date=str(ballot.get('date',''))
-  if len(date)==10 and date[2]=='.' and date[5]=='.':
-   date=date[6:10]+'-'+date[3:5]+'-'+date[:2]
-  return date>='2026-11-15'
- known_authors={'9443':'DanilaGorilla','9448':'Exile','9474':'DmitryLixxx'}
- existing={str(x['id']):x for x in d.get('ballots',[]) if in_scope(x)}
- before=min([int(x['id']) for x in existing.values()] or [999999])
- url=URL
- seen=set()
- for _ in range(60):
-  resp=requests.get(url,timeout=30,headers={'User-Agent':'Mozilla/5.0'})
-  resp.raise_for_status()
-  soup=BeautifulSoup(resp.text,'html.parser')
-  wraps=soup.select('.tgme_widget_message_wrap')
-  ids=[]
-  older=False
-  for w in wraps:
-   msg=w.select_one('.tgme_widget_message')
-   body=w.select_one('.tgme_widget_message_text')
-   tm=w.select_one('time[datetime]')
-   if not msg or not body:
-    continue
-   post=msg.get('data-post','')
-   mid=post.rsplit('/',1)[-1] if '/' in post else ''
-   if not mid.isdigit():
-    continue
-   ids.append(int(mid))
-   seen.add(mid)
-   date=tm.get('datetime','') if tm else ''
-   text=body.get_text(' ',strip=True)
-   votes=extract(text)
-   if len(votes)>=8 and date and date[:10]>='2026-11-15':
-    voter=known_authors.get(mid) or author(text)
-    existing[mid]={'id':mid,'author':voter,'date':date[:10],'publishedAt':date,'postUrl':'https://t.me/slay_awards/'+mid,'votes':votes}
-   if date and date[:10]<'2026-11-15':
-    older=True
-  if older or not ids:
-   break
-  nxt=min(ids)
-  if nxt<=before:
-   break
-  url=URL+'?before='+str(nxt)
- for ballot in existing.values():
-  mid=str(ballot.get('id',''))
-  if mid in known_authors:
-   ballot['author']=known_authors[mid]
-  ballot['postUrl']='https://t.me/slay_awards/'+mid
-  ballot['votes']={category:canon(category,value) for category,value in ballot.get('votes',{}).items()}
- d['ballots']=sorted(existing.values(),key=lambda x:int(x['id']))
- d['updatedAt']=datetime.now(timezone.utc).isoformat(timespec='seconds')
- DATA.write_text(json.dumps(d,ensure_ascii=False,indent=2),encoding='utf-8')
- print('Saved '+str(len(d['ballots']))+' ballots; '+str(len(seen))+' Telegram posts checked')
-if __name__=='__main__':
- main()
+    data = json.loads(DATA.read_text(encoding='utf-8'))
+    scan_from = '2026-11-21'
+    moscow = timezone(timedelta(hours=3))
+
+    def ballot_date(ballot):
+        published_at = str(ballot.get('publishedAt') or '')
+        if published_at:
+            try:
+                return datetime.fromisoformat(published_at.replace('Z', '+00:00')).astimezone(moscow).date().isoformat()
+            except ValueError:
+                pass
+        value = str(ballot.get('date', ''))
+        if len(value) >= 10 and value[4] == '-':
+            return value[:10]
+        if len(value) >= 10 and value[2] == '.' and value[5] == '.':
+            return value[6:10] + '-' + value[3:5] + '-' + value[:2]
+        return value
+
+    known_authors = {'9443': 'DanilaGorilla', '9448': 'Exile', '9474': 'DmitryLixxx'}
+    existing = {
+        str(ballot['id']): ballot
+        for ballot in data.get('ballots', [])
+        if '2026-11-15' <= ballot_date(ballot) < scan_from
+    }
+    url = URL
+    seen = set()
+    for _ in range(60):
+        response = requests.get(url, timeout=30, headers={'User-Agent': 'Mozilla/5.0'})
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, 'html.parser')
+        wraps = soup.select('.tgme_widget_message_wrap')
+        ids = []
+        reached_before_window = False
+        for wrap in wraps:
+            message = wrap.select_one('.tgme_widget_message')
+            body = wrap.select_one('.tgme_widget_message_text')
+            timestamp = wrap.select_one('time[datetime]')
+            if not message or not body:
+                continue
+            post = message.get('data-post', '')
+            message_id = post.rsplit('/', 1)[-1] if '/' in post else ''
+            if not message_id.isdigit():
+                continue
+            ids.append(int(message_id))
+            seen.add(message_id)
+            published_at = timestamp.get('datetime', '') if timestamp else ''
+            text = body.get_text(' ', strip=True)
+            try:
+                published_date = datetime.fromisoformat(published_at.replace('Z', '+00:00')).astimezone(moscow).date().isoformat()
+            except (ValueError, TypeError):
+                continue
+
+            if published_date < scan_from:
+                reached_before_window = True
+                continue
+
+            votes = extract(text)
+            voter = author(text)
+            if voter and set(votes) == set(CATS):
+                existing[message_id] = {
+                    'id': message_id,
+                    'author': known_authors.get(message_id, voter),
+                    'date': published_date,
+                    'publishedAt': published_at,
+                    'postUrl': 'https://t.me/slay_awards/' + message_id,
+                    'votes': votes
+                }
+
+        if reached_before_window or not ids:
+            break
+        url = URL + '?before=' + str(min(ids))
+
+    for ballot in existing.values():
+        message_id = str(ballot.get('id', ''))
+        if message_id in known_authors:
+            ballot['author'] = known_authors[message_id]
+        ballot['postUrl'] = 'https://t.me/slay_awards/' + message_id
+
+    data['ballots'] = sorted(existing.values(), key=lambda ballot: int(ballot['id']))
+    data['updatedAt'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
+    DATA.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
+    print('Saved ' + str(len(data['ballots'])) + ' ballots; ' + str(len(seen)) + ' Telegram posts checked from ' + scan_from)
+
+
+if __name__ == '__main__':
+    main()
