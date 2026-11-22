@@ -9,6 +9,10 @@ def clean(s):return re.sub(r'\s+',' ',EM.sub('',unicodedata.normalize('NFC',s)))
 def canon(c,v):
  if c in ('Проект года на Twitch','Завоз года'):
   s=clean(v).strip('«»“”"\'').replace('Bосхождение','Восхождение').replace('EgorikShkred','Егорик')
+  if c=='Проект года на Twitch':
+   normalized=re.sub(r'\s+',' ',s.casefold().replace('aфрике','африке').replace('&',' и ')).strip()
+   if normalized=='выживание в африке' or re.fullmatch(r'африка\s+(?:leva2k\s+и\s+guacamolemolly|guacamolemolly\s+и\s+leva2k)',normalized):
+    return 'Выживание в Африке'
   if s.casefold()=='восхождение на пик ленина':return 'Восхождение на пик Ленина'
   if s.casefold()=='егорик разрушает комнаты стримеров':return 'Егорик разрушает комнаты стримеров'
   if s.casefold() in ('медиа класико','betboom медиа класико'):return 'BetBoom Медиа Класико'
