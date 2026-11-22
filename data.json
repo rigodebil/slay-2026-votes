@@ -1,6 +1,6 @@
 {
   "source": "https://t.me/s/slay_awards",
-  "updatedAt": "2026-11-22T18:21:20+00:00",
+  "updatedAt": "2026-11-22T19:21:28+00:00",
   "ballots": [
     {
       "id": "9443",
@@ -743,6 +743,31 @@
         "Ютубер года": "Qewbite",
         "Лучший Minecraft-стример": "Melharucos",
         "Человек-мем года": "Gaechka"
+      }
+    },
+    {
+      "id": "9495",
+      "author": "Bratishkin",
+      "date": "2026-11-22",
+      "publishedAt": "2026-11-22T19:12:41+00:00",
+      "postUrl": "https://t.me/slay_awards/9495",
+      "votes": {
+        "SLAY King": "Deepins",
+        "SLAY Queen": "Yuuechka",
+        "Лучший CS-стример": "Deko",
+        "Лучший Dota-стример": "StariyBog",
+        "Лучший multigaming-стример": "WELOVEGAMES",
+        "NEXT GEN": "XAH0B",
+        "Лучший IRL-стример": "Leva2k",
+        "Проект года на Twitch": "Восхождение на пик Ленина",
+        "Аудитория года": "5opka",
+        "Пара года": "NelyaRay & Stintik",
+        "Завоз года": "Mafanya",
+        "Трек года": "Прости я не знаю — SeregaPirat",
+        "Косплеер года": "AlinaRinRin",
+        "Ютубер года": "EgorikShkred",
+        "Лучший Minecraft-стример": "ZakvielChannel",
+        "Человек-мем года": "Zloy"
       }
     }
   ]
