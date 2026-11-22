@@ -128,6 +128,10 @@ def main():
         if message_id in known_authors:
             ballot['author'] = known_authors[message_id]
         ballot['postUrl'] = 'https://t.me/slay_awards/' + message_id
+        ballot['votes'] = {
+            category: canon(category, value) if value else ''
+            for category, value in ballot.get('votes', {}).items()
+        }
 
     data['ballots'] = sorted(existing.values(), key=lambda ballot: int(ballot['id']))
     data['updatedAt'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
