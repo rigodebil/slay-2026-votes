@@ -13,6 +13,7 @@ def canon(c,v):
    normalized=re.sub(r'\s+',' ',s.casefold().replace('aфрике','африке').replace('&',' и ')).strip()
    if normalized=='выживание в африке' or re.fullmatch(r'африка\s+(?:leva2k\s+и\s+guacamolemolly|guacamolemolly\s+и\s+leva2k)',normalized):
     return 'Выживание в Африке'
+  if c=='Завоз года' and s.casefold()=='мозгодел прицепился':return '5opka и мозгоеб'
   if s.casefold()=='восхождение на пик ленина':return 'Восхождение на пик Ленина'
   if s.casefold()=='егорик разрушает комнаты стримеров':return 'Егорик разрушает комнаты стримеров'
   if s.casefold() in ('медиа класико','betboom медиа класико'):return 'BetBoom Медиа Класико'
