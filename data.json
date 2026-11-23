@@ -1,6 +1,6 @@
 {
   "source": "https://t.me/s/slay_awards",
-  "updatedAt": "2026-11-23T20:31:37+00:00",
+  "updatedAt": "2026-11-23T21:31:51+00:00",
   "ballots": [
     {
       "id": "9443",
@@ -818,6 +818,31 @@
         "Ютубер года": "Nowkie",
         "Лучший Minecraft-стример": "5opka",
         "Человек-мем года": "Helin"
+      }
+    },
+    {
+      "id": "9506",
+      "author": "ByOwl",
+      "date": "2026-11-23",
+      "publishedAt": "2026-11-23T20:37:07+00:00",
+      "postUrl": "https://t.me/slay_awards/9506",
+      "votes": {
+        "SLAY King": "DangerLyoha",
+        "SLAY Queen": "ByOwl",
+        "Лучший CS-стример": "Strogo",
+        "Лучший Dota-стример": "Avice",
+        "Лучший multigaming-стример": "Sasavot",
+        "NEXT GEN": "UraniumRR",
+        "Лучший IRL-стример": "Leva2k",
+        "Проект года на Twitch": "BetBoom Медиа Класико",
+        "Аудитория года": "5opka",
+        "Пара года": "ByOwl & Shadowkek",
+        "Завоз года": "Gaechka и Strogo косплеят Таноса и Халка",
+        "Трек года": "Прости я не знаю — SeregaPirat",
+        "Косплеер года": "ByOwl",
+        "Ютубер года": "Exile",
+        "Лучший Minecraft-стример": "Mokrivskyi",
+        "Человек-мем года": "Zloy"
       }
     }
   ]
