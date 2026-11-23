@@ -1,6 +1,6 @@
 {
   "source": "https://t.me/s/slay_awards",
-  "updatedAt": "2026-11-23T16:34:37+00:00",
+  "updatedAt": "2026-11-23T17:37:05+00:00",
   "ballots": [
     {
       "id": "9443",
@@ -793,6 +793,31 @@
         "Ютубер года": "",
         "Лучший Minecraft-стример": "",
         "Человек-мем года": "Gaechka"
+      }
+    },
+    {
+      "id": "9505",
+      "author": "Helin",
+      "date": "2026-11-23",
+      "publishedAt": "2026-11-23T16:50:01+00:00",
+      "postUrl": "https://t.me/slay_awards/9505",
+      "votes": {
+        "SLAY King": "DangerLyoha",
+        "SLAY Queen": "MorpheYa",
+        "Лучший CS-стример": "Strogo",
+        "Лучший Dota-стример": "Avice",
+        "Лучший multigaming-стример": "Sasavot",
+        "NEXT GEN": "Formixyouknow",
+        "Лучший IRL-стример": "Leva2k",
+        "Проект года на Twitch": "BetBoom Медиа Класико",
+        "Аудитория года": "Sasavot",
+        "Пара года": "Gaechka & Strogo",
+        "Завоз года": "Егорик разрушает комнаты стримеров",
+        "Трек года": "Тигр — Gensyxa",
+        "Косплеер года": "Gaechka",
+        "Ютубер года": "Nowkie",
+        "Лучший Minecraft-стример": "5opka",
+        "Человек-мем года": "Helin"
       }
     }
   ]
