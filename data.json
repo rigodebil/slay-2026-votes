@@ -1,6 +1,6 @@
 {
   "source": "https://t.me/s/slay_awards",
-  "updatedAt": "2026-11-23T09:48:56+00:00",
+  "updatedAt": "2026-11-23T10:55:57+00:00",
   "ballots": [
     {
       "id": "9443",
@@ -742,6 +742,31 @@
         "Косплеер года": "AlinaRinRin",
         "Ютубер года": "EgorikShkred",
         "Лучший Minecraft-стример": "ZakvielChannel",
+        "Человек-мем года": "Zloy"
+      }
+    },
+    {
+      "id": "9497",
+      "author": "DanilaGorilla",
+      "date": "2026-11-23",
+      "publishedAt": "2026-11-23T10:14:39+00:00",
+      "postUrl": "https://t.me/slay_awards/9497",
+      "votes": {
+        "SLAY King": "RavshanN",
+        "SLAY Queen": "ByOwl",
+        "Лучший CS-стример": "OverDrive",
+        "Лучший Dota-стример": "Rostislav999",
+        "Лучший multigaming-стример": "DmitryLixxx",
+        "NEXT GEN": "CleanKil",
+        "Лучший IRL-стример": "Leva2k",
+        "Проект года на Twitch": "BetBoom Медиа Класико",
+        "Аудитория года": "5opka",
+        "Пара года": "Koreshzy & Kosstochka",
+        "Завоз года": "Егорик разрушает комнаты стримеров",
+        "Трек года": "Кондиции — VladRagovsky",
+        "Косплеер года": "Gagik",
+        "Ютубер года": "Exile",
+        "Лучший Minecraft-стример": "Edison",
         "Человек-мем года": "Zloy"
       }
     }
