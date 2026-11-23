@@ -1,6 +1,6 @@
 {
   "source": "https://t.me/s/slay_awards",
-  "updatedAt": "2026-11-23T11:46:36+00:00",
+  "updatedAt": "2026-11-23T12:57:07+00:00",
   "ballots": [
     {
       "id": "9443",
@@ -768,6 +768,31 @@
         "Ютубер года": "Exile",
         "Лучший Minecraft-стример": "Edison",
         "Человек-мем года": "Zloy"
+      }
+    },
+    {
+      "id": "9499",
+      "author": "Leva2k",
+      "date": "2026-11-23",
+      "publishedAt": "2026-11-23T12:35:38+00:00",
+      "postUrl": "https://t.me/slay_awards/9499",
+      "votes": {
+        "SLAY King": "RavshanN",
+        "SLAY Queen": "Gensyxa",
+        "Лучший CS-стример": "Strogo",
+        "Лучший Dota-стример": "Rostislav999",
+        "Лучший multigaming-стример": "Iceicell",
+        "NEXT GEN": "AnarAbdullaev",
+        "Лучший IRL-стример": "DmitryLixxx",
+        "Проект года на Twitch": "Восхождение на пик Ленина",
+        "Аудитория года": "5opka",
+        "Пара года": "Gaechka & Strogo",
+        "Завоз года": "Cвинки-сосиски» от Gaechka",
+        "Трек года": "Даймондс — Ekatze",
+        "Косплеер года": "Gaechka",
+        "Ютубер года": "",
+        "Лучший Minecraft-стример": "",
+        "Человек-мем года": "Gaechka"
       }
     }
   ]
