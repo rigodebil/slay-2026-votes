@@ -1,6 +1,6 @@
 {
   "source": "https://t.me/s/slay_awards",
-  "updatedAt": "2026-11-24T17:24:34+00:00",
+  "updatedAt": "2026-11-24T18:14:16+00:00",
   "ballots": [
     {
       "id": "9443",
@@ -868,6 +868,31 @@
         "Ютубер года": "Exile",
         "Лучший Minecraft-стример": "Mokrivskyi",
         "Человек-мем года": "Zloy"
+      }
+    },
+    {
+      "id": "9510",
+      "author": "Renatko",
+      "date": "2026-11-24",
+      "publishedAt": "2026-11-24T17:44:14+00:00",
+      "postUrl": "https://t.me/slay_awards/9510",
+      "votes": {
+        "SLAY King": "RavshanN",
+        "SLAY Queen": "ByOwl",
+        "Лучший CS-стример": "Chopper",
+        "Лучший Dota-стример": "Stray",
+        "Лучший multigaming-стример": "Recrent",
+        "NEXT GEN": "Misolo",
+        "Лучший IRL-стример": "RavshanN",
+        "Проект года на Twitch": "BetBoom Медиа Класико",
+        "Аудитория года": "Steel",
+        "Пара года": "ByOwl & Shadowkek",
+        "Завоз года": "Егорик разрушает комнаты стримеров",
+        "Трек года": "Провод — PlohoyParen",
+        "Косплеер года": "ByOwl",
+        "Ютубер года": "Михаил Литвин",
+        "Лучший Minecraft-стример": "ZakvielChannel",
+        "Человек-мем года": "RavshanN"
       }
     }
   ]
