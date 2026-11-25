@@ -281,9 +281,10 @@
       ballots.forEach(function(ballot){
         personal.forEach(function(category){
           const name=canonicalCandidate(ballot.votes&&ballot.votes[category],category);
-          if(!name||name.toLocaleLowerCase('ru-RU')==='шорты хантика')return;
-          totals[name]=(totals[name]||0)+1;
+          if(!name)return;
           categoryBallotCounts[category]=(categoryBallotCounts[category]||0)+1;
+          if(name.toLocaleLowerCase('ru-RU')==='шорты хантика')return;
+          totals[name]=(totals[name]||0)+1;
           if(!categoryTotals[name])categoryTotals[name]={};
           if(!categoryTotals[name][category])categoryTotals[name][category]={count:0,voters:[]};
           const group=categoryTotals[name][category];
