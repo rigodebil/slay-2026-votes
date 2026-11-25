@@ -182,6 +182,7 @@
         if(normalized==='выживание в африке'||/^африка\s+(?:leva2k\s+и\s+guacamolemolly|guacamolemolly\s+и\s+leva2k)$/.test(normalized))return 'Выживание в Африке';
         if(/^(?:betboom\s+)?медиа класико$/i.test(clean))return 'BetBoom Медиа Класико';
       }
+      if(category==='Трек года'&&/^туса медуза\\s+—\\s+5opka,\\s*mellsher и вовы солодкова$/i.test(clean))return 'ТУСА МЕДУЗА — 5opka, Mellsher и Вова Солодков';
       if(category==='Завоз года'){
         const normalized=clean.toLocaleLowerCase('ru-RU').replace(/\s+/g,' ').trim();
         if(normalized==='мозгодел прицепился')return '5opka и мозгоеб';
