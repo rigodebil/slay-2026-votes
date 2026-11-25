@@ -69,6 +69,7 @@
     tbody tr{transition:background .16s ease}
     tbody tr:hover{background:rgba(255,255,255,.035)}
     .num{text-align:right;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
+    .vote-share{display:block;color:var(--muted);font-size:10px;font-weight:650;line-height:1.15}.num .vote-share{text-align:right}
     .place{width:58px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
     .overall tbody tr:first-child{background:linear-gradient(90deg,rgba(255,121,0,.12),transparent 78%)}
     .overall tbody tr:first-child td{color:var(--orange-bright);font-weight:850}
@@ -276,11 +277,13 @@
     function renderOverall(ballots){
       const totals={};
       const categoryTotals={};
+      const categoryBallotCounts={};
       ballots.forEach(function(ballot){
         personal.forEach(function(category){
           const name=canonicalCandidate(ballot.votes&&ballot.votes[category],category);
           if(!name||name.toLocaleLowerCase('ru-RU')==='шорты хантика')return;
           totals[name]=(totals[name]||0)+1;
+          categoryBallotCounts[category]=(categoryBallotCounts[category]||0)+1;
           if(!categoryTotals[name])categoryTotals[name]={};
           if(!categoryTotals[name][category])categoryTotals[name][category]={count:0,voters:[]};
           const group=categoryTotals[name][category];
@@ -305,7 +308,7 @@
             const dateText=formatDateTime(voter.publishedAt,voter.date);
             return '<li><a href="'+esc(href)+'" target="_blank" rel="noopener noreferrer">'+esc(voter.author)+'</a>'+(dateText?'<time'+(voter.publishedAt?' datetime="'+esc(voter.publishedAt)+'"':'')+'>'+esc(dateText)+'</time>':'')+'</li>';
           }).join('');
-          return '<li><div class="overall-category-line"><span>'+esc(category)+'</span><strong>'+group.count+' гол.</strong></div><button type="button" class="voter-toggle" aria-expanded="false" aria-controls="'+voterId+'" data-voter-toggle="'+voterId+'">Кто голосовал <span class="toggle-count">'+group.count+'</span></button><div class="voter-list overall-category-voters" id="'+voterId+'" hidden><ul>'+voters+'</ul></div></li>';
+          return '<li><div class="overall-category-line"><span>'+esc(category)+'</span><strong>'+group.count+' из '+categoryBallotCounts[category]+'</strong></div><button type="button" class="voter-toggle" aria-expanded="false" aria-controls="'+voterId+'" data-voter-toggle="'+voterId+'">Кто голосовал <span class="toggle-count">'+group.count+'</span></button><div class="voter-list overall-category-voters" id="'+voterId+'" hidden><ul>'+voters+'</ul></div></li>';
         }).join('');
         return '<tr class="'+rowClass(item.name)+'"><td class="place">'+rankLabel(entries,index,true)+'</td><td><div class="candidate-name">'+esc(item.name)+'</div><div class="candidate-tools"><button type="button" class="voter-toggle" aria-expanded="false" aria-controls="'+listId+'" data-voter-toggle="'+listId+'">Номинации <span class="toggle-count">'+Object.keys(item.categories).length+'</span></button></div><div class="voter-list overall-category-votes" id="'+listId+'" hidden><ul>'+categories+'</ul></div></td><td class="num">'+item.count+'</td></tr>';
       }).join('');
@@ -324,9 +327,9 @@
       const rows=entries.map(function(item,index){
         const voterId='voters-'+categoryIndex+'-'+index;
         const voterEntries=item.voters.map(function(voter){const href=voter.postUrl||('https://t.me/slay_awards/'+voter.id);const dateText=formatDateTime(voter.publishedAt,voter.date);return '<li><a href="'+esc(href)+'" target="_blank" rel="noopener noreferrer">'+esc(voter.author)+'</a>'+(dateText?'<time'+(voter.publishedAt?' datetime="'+esc(voter.publishedAt)+'"':'')+'>'+esc(dateText)+'</time>':'')+'</li>';}).join('');
-        return '<tr class="'+rowClass(item.name)+'"><td class="place">'+rankLabel(entries,index,false)+'</td><td><div class="candidate-name">'+esc(item.name)+'</div><div class="candidate-tools"><button type="button" class="voter-toggle" aria-expanded="false" aria-controls="'+voterId+'" data-voter-toggle="'+voterId+'">Кто голосовал <span class="toggle-count">'+item.count+'</span></button></div><div class="voter-list" id="'+voterId+'" hidden><ul>'+voterEntries+'</ul></div></td><td class="num">'+item.count+'</td></tr>';
+        return '<tr class="'+rowClass(item.name)+'"><td class="place">'+rankLabel(entries,index,false)+'</td><td><div class="candidate-name">'+esc(item.name)+'</div><div class="candidate-tools"><button type="button" class="voter-toggle" aria-expanded="false" aria-controls="'+voterId+'" data-voter-toggle="'+voterId+'">Кто голосовал <span class="toggle-count">'+item.count+'</span></button></div><div class="voter-list" id="'+voterId+'" hidden><ul>'+voterEntries+'</ul></div></td><td class="num">'+item.count+'<span class="vote-share">из '+valid+'</span></td></tr>';
       }).join('');
-      return '<section class="category-panel" id="category-'+categoryIndex+'" role="tabpanel" aria-labelledby="carousel-current-label" hidden><div class="section-heading"><div><p class="eyebrow">Номинация</p><h2>'+esc(category)+'</h2></div><span class="ballot-counter">'+valid+' голосов</span></div><table><thead><tr><th>Место</th><th>Кандидат / вариант</th><th class="num">Голоса</th></tr></thead><tbody>'+rows+'</tbody></table></section>';
+      return '<section class="category-panel" id="category-'+categoryIndex+'" role="tabpanel" aria-labelledby="carousel-current-label" hidden><div class="section-heading"><div><p class="eyebrow">Номинация</p><h2>'+esc(category)+'</h2></div><span class="ballot-counter">'+valid+' бюллетеней</span></div><table><thead><tr><th>Место</th><th>Кандидат / вариант</th><th class="num">Голоса</th></tr></thead><tbody>'+rows+'</tbody></table></section>';
     }
     function renderFeed(ballots){
       const newest=ballots.slice().sort(function(a,b){return Number(b.id)-Number(a.id);});
