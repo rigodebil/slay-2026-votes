@@ -23,7 +23,9 @@ def canon(c,v):
   s=clean(v).replace('Диор Армани','Dior Armani');p=re.split(r'\s*(?:и|&)\s*',s)
   return ' & '.join(sorted([x.strip() for x in p],key=str.casefold)) if len(p)==2 else s
  if c=='Трек года':
-  q=re.findall(r'[«“\"](.*?)[»”\"]',v); title=clean(q[-1] if q else v); before=v[:v.rfind(q[-1])] if q else '';after=v[v.rfind(q[-1])+len(q[-1])+1:] if q else '';m=re.search(r'от\s+(.+)$',after);artist=clean(m.group(1)) if m else clean(before.split('—')[0]).strip(' —');return f'{title} — {artist}' if artist else title
+  q=re.findall(r'[«“\"](.*?)[»”\"]',v); title=clean(q[-1] if q else v); before=v[:v.rfind(q[-1])] if q else '';after=v[v.rfind(q[-1])+len(q[-1])+1:] if q else '';m=re.search(r'от\s+(.+)$',after);artist=clean(m.group(1)) if m else clean(before.split('—')[0]).strip(' —')
+  if title.casefold()=='туса медуза':artist=re.sub(r'вовы\s+солодкова','Вова Солодков',artist,flags=re.I)
+  return f'{title} — {artist}' if artist else title
  return clean(v)
 def extract(text):
     out = {}
