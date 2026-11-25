@@ -3,27 +3,6 @@
   "updatedAt": "2026-11-25T13:00:29+00:00",
   "ballots": [
     {
-      "id": "9443",
-      "author": "DanilaGorilla",
-      "date": "2026-11-15",
-      "publishedAt": "2026-11-15T20:34:58+00:00",
-      "postUrl": "https://t.me/slay_awards/9443",
-      "votes": {
-        "SLAY King": "RavshanN",
-        "SLAY Queen": "Gensyxa",
-        "Лучший CS-стример": "Strogo",
-        "Лучший multigaming-стример": "DmitryLixxx",
-        "Лучший IRL-стример": "Leva2k",
-        "Проект года на Twitch": "BetBoom Медиа Класико",
-        "Аудитория года": "5opka",
-        "Пара года": "Enzzai & Whylollycry",
-        "Завоз года": "Егорик разрушает комнаты стримеров",
-        "Трек года": "Кондиции — VladRagovsky",
-        "Косплеер года": "Gaechka или ByOwl",
-        "Ютубер года": "Paradeev1ch"
-      }
-    },
-    {
       "id": "9445",
       "author": "Markl1nck",
       "date": "2026-11-16",
