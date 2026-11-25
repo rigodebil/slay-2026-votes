@@ -312,6 +312,15 @@
         if(v.includes('strogo')&&v.includes('взрыв надувного шара'))return ['Strogo'];
         return [];
       }
+      function creditedProject(value){
+        const project=String(value||'').normalize('NFC').toLocaleLowerCase('ru-RU');
+        if(project.includes('медиа класико'))return ['Exile','Paradeev1ch'];
+        if(project.includes('восхождение на пик'))return ['Leva2k','Rostislav999'];
+        if(project.includes('выживание в африке'))return ['Leva2k','Guacamolemolly'];
+        if(project.includes('женский спортивный буткемп'))return ['Gensyxa'];
+        if(project.includes('киногонка'))return ['DinaBlin'];
+        return [];
+      }
       ballots.forEach(function(ballot){
         personal.forEach(function(category){
           const name=canonicalCandidate(ballot.votes&&ballot.votes[category],category);
@@ -339,6 +348,11 @@
         if(zavoz){
           categoryBallotCounts['Завоз года']=(categoryBallotCounts['Завоз года']||0)+1;
           creditedZavoz(zavoz).forEach(function(name){addCredit(name,'Завоз года',ballot);});
+        }
+        const project=canonicalCandidate(ballot.votes&&ballot.votes['Проект года на Twitch'],'Проект года на Twitch');
+        if(project){
+          categoryBallotCounts['Проект года на Twitch']=(categoryBallotCounts['Проект года на Twitch']||0)+1;
+          creditedProject(project).forEach(function(name){addCredit(name,'Проект года на Twitch',ballot);});
         }
       });
       const entries=Object.keys(totals).map(function(name){return {name:name,count:totals[name],categories:categoryTotals[name]};}).sort(function(a,b){return b.count-a.count||a.name.localeCompare(b.name,'ru');});
