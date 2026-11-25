@@ -278,9 +278,10 @@
       const totals={};
       const categoryTotals={};
       const categoryBallotCounts={};
+      const excludedOverall=new Set(['шорты хантика','dior armani']);
       function addCredit(name,category,ballot){
         name=String(name||'').normalize('NFC').replace(/\s+/g,' ').trim();
-        if(!name)return;
+        if(!name||excludedOverall.has(name.toLocaleLowerCase('ru-RU')))return;
         if(!categoryTotals[name])categoryTotals[name]={};
         if(!categoryTotals[name][category])categoryTotals[name][category]={count:0,voters:[]};
         totals[name]=(totals[name]||0)+1;
@@ -293,12 +294,29 @@
           postUrl:ballot.postUrl||('https://t.me/slay_awards/'+ballot.id)
         });
       }
+      function creditedZavoz(value){
+        const v=String(value||'').normalize('NFC').replace(/[«»"]/g,'').replace(/\s+/g,' ').trim().toLocaleLowerCase('ru-RU');
+        if(v==='егорик'||v.includes('егорик разрушает комнаты стримеров'))return ['Егорик'];
+        if(v.includes('гаечка')&&v.includes('strogo')&&v.includes('таноса')&&v.includes('халка'))return ['Gaechka','Strogo'];
+        if(v.includes('5opka и мозгоеб'))return ['5opka'];
+        if(v.includes('клубника'))return ['Buster'];
+        if(v.includes('восхождение на пик'))return ['Leva2k'];
+        if(v.includes('задержание')&&v.includes('sasavot'))return ['Sasavot'];
+        if(v.includes('пиксель баттл')&&v.includes('nowkie'))return ['Nowkie'];
+        if(v.includes('strogo')&&v.includes('сгорел пк'))return ['Strogo'];
+        if(v.includes('buster')&&v.includes('ravshann')&&v.includes('драка'))return ['Buster','RavshanN'];
+        if(v.includes('винки-сосиски')&&v.includes('gaechka'))return ['Gaechka'];
+        if(v.includes('dmitrylixxx')&&v.includes('davayponovoy'))return ['DmitryLixxx','DavayPoNovoy'];
+        if(v==='maфanya'||v==='mafanya')return ['Mafanya'];
+        if((v.includes('maфanya')||v.includes('mafanya'))&&v.includes('диор армани'))return ['Mafanya'];
+        if(v.includes('strogo')&&v.includes('взрыв надувного шара'))return ['Strogo'];
+        return [];
+      }
       ballots.forEach(function(ballot){
         personal.forEach(function(category){
           const name=canonicalCandidate(ballot.votes&&ballot.votes[category],category);
           if(!name)return;
           categoryBallotCounts[category]=(categoryBallotCounts[category]||0)+1;
-          if(name.toLocaleLowerCase('ru-RU')==='шорты хантика')return;
           addCredit(name,category,ballot);
         });
 
@@ -306,16 +324,21 @@
         if(pair){
           categoryBallotCounts['Пара года']=(categoryBallotCounts['Пара года']||0)+1;
           const members=pair.split(/\s*&\s*|\s+и\s+|\s*×\s*/i).map(function(name){return name.trim();}).filter(Boolean);
-          if(members.length===2)new Set(members.map(function(name){return name.toLocaleLowerCase('ru-RU');})).forEach(function(memberKey){
-            const member=members.find(function(name){return name.toLocaleLowerCase('ru-RU')===memberKey;});
-            addCredit(member,'Пара года',ballot);
-          });
+          if(members.length===2){
+            const seen=new Set();
+            members.forEach(function(member){
+              const key=member.toLocaleLowerCase('ru-RU');
+              if(seen.has(key))return;
+              seen.add(key);
+              addCredit(member,'Пара года',ballot);
+            });
+          }
         }
 
         const zavoz=canonicalCandidate(ballot.votes&&ballot.votes['Завоз года'],'Завоз года');
         if(zavoz){
           categoryBallotCounts['Завоз года']=(categoryBallotCounts['Завоз года']||0)+1;
-          if(zavoz.toLocaleLowerCase('ru-RU')==='5opka и мозгоеб')addCredit('5opka','Завоз года',ballot);
+          creditedZavoz(zavoz).forEach(function(name){addCredit(name,'Завоз года',ballot);});
         }
       });
       const entries=Object.keys(totals).map(function(name){return {name:name,count:totals[name],categories:categoryTotals[name]};}).sort(function(a,b){return b.count-a.count||a.name.localeCompare(b.name,'ru');});
