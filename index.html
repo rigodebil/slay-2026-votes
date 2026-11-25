@@ -278,24 +278,45 @@
       const totals={};
       const categoryTotals={};
       const categoryBallotCounts={};
+      function addCredit(name,category,ballot){
+        name=String(name||'').normalize('NFC').replace(/\s+/g,' ').trim();
+        if(!name)return;
+        if(!categoryTotals[name])categoryTotals[name]={};
+        if(!categoryTotals[name][category])categoryTotals[name][category]={count:0,voters:[]};
+        totals[name]=(totals[name]||0)+1;
+        const group=categoryTotals[name][category];
+        group.count+=1;
+        group.voters.push({
+          author:ballot.author||'Автор не указан',
+          date:ballot.date||'',
+          publishedAt:ballot.publishedAt||'',
+          postUrl:ballot.postUrl||('https://t.me/slay_awards/'+ballot.id)
+        });
+      }
       ballots.forEach(function(ballot){
         personal.forEach(function(category){
           const name=canonicalCandidate(ballot.votes&&ballot.votes[category],category);
           if(!name)return;
           categoryBallotCounts[category]=(categoryBallotCounts[category]||0)+1;
           if(name.toLocaleLowerCase('ru-RU')==='шорты хантика')return;
-          totals[name]=(totals[name]||0)+1;
-          if(!categoryTotals[name])categoryTotals[name]={};
-          if(!categoryTotals[name][category])categoryTotals[name][category]={count:0,voters:[]};
-          const group=categoryTotals[name][category];
-          group.count+=1;
-          group.voters.push({
-            author:ballot.author||'Автор не указан',
-            date:ballot.date||'',
-            publishedAt:ballot.publishedAt||'',
-            postUrl:ballot.postUrl||('https://t.me/slay_awards/'+ballot.id)
-          });
+          addCredit(name,category,ballot);
         });
+
+        const pair=canonicalCandidate(ballot.votes&&ballot.votes['Пара года'],'Пара года');
+        if(pair){
+          categoryBallotCounts['Пара года']=(categoryBallotCounts['Пара года']||0)+1;
+          const members=pair.split(/\s*&\s*|\s+и\s+|\s*×\s*/i).map(function(name){return name.trim();}).filter(Boolean);
+          if(members.length===2)new Set(members.map(function(name){return name.toLocaleLowerCase('ru-RU');})).forEach(function(memberKey){
+            const member=members.find(function(name){return name.toLocaleLowerCase('ru-RU')===memberKey;});
+            addCredit(member,'Пара года',ballot);
+          });
+        }
+
+        const zavoz=canonicalCandidate(ballot.votes&&ballot.votes['Завоз года'],'Завоз года');
+        if(zavoz){
+          categoryBallotCounts['Завоз года']=(categoryBallotCounts['Завоз года']||0)+1;
+          if(zavoz.toLocaleLowerCase('ru-RU')==='5opka и мозгоеб')addCredit('5opka','Завоз года',ballot);
+        }
       });
       const entries=Object.keys(totals).map(function(name){return {name:name,count:totals[name],categories:categoryTotals[name]};}).sort(function(a,b){return b.count-a.count||a.name.localeCompare(b.name,'ru');});
       ranked(entries);
