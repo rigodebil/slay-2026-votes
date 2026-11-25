@@ -191,6 +191,7 @@
     }
     function canonicalCandidate(value,category){
       const clean=String(value||'').normalize('NFC').replace(/\s+/g,' ').trim();
+      if(category==='NEXT GEN'&&clean.toLocaleLowerCase('ru-RU')==='cleankil')return 'CleanKill';
       if(category==='Проект года на Twitch'){
         const normalized=clean.toLocaleLowerCase('ru-RU').replace(/aфрике/g,'африке').replace(/&/g,' и ').replace(/\s+/g,' ').trim();
         if(normalized==='выживание в африке'||/^африка\s+(?:leva2k\s+и\s+guacamolemolly|guacamolemolly\s+и\s+leva2k)$/.test(normalized))return 'Выживание в Африке';
