@@ -29,6 +29,7 @@ def canon(c,v):
    normalized=re.sub(r'\s*(?:и|×|x|х)\s*',' и ',artist,flags=re.I)
    if re.sub(r'\s+',' ',normalized).strip().casefold()=='akyuliych и молодой платон':artist='Akyuliych и Молодой Платон'
   return f'{title} — {artist}' if artist else title
+ if c=='NEXT GEN' and clean(v).casefold()=='cleankil':return 'CleanKill'
  return clean(v)
 def extract(text):
     out = {}
