@@ -180,7 +180,8 @@
     function rankLabel(items,index,medalFirst){
       const item=items[index];
       const tied=(index>0&&items[index-1].count===item.count)||(index+1<items.length&&items[index+1].count===item.count);
-      let label=medalFirst&&index===0&&item.place===1?'🥇':String(item.place);
+      const medals={1:'🥇',2:'🥈',3:'🥉'};
+      const label=medalFirst&&medals[item.place]?medals[item.place]:String(item.place);
       return label+(tied?'=':'');
     }
     function formatDate(value){
