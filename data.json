@@ -1,6 +1,6 @@
 {
   "source": "https://t.me/s/slay_awards",
-  "updatedAt": "2026-11-25T10:49:58+00:00",
+  "updatedAt": "2026-11-25T11:51:07+00:00",
   "ballots": [
     {
       "id": "9443",
@@ -893,6 +893,31 @@
         "Ютубер года": "Михаил Литвин",
         "Лучший Minecraft-стример": "ZakvielChannel",
         "Человек-мем года": "RavshanN"
+      }
+    },
+    {
+      "id": "9512",
+      "author": "Whylollycry",
+      "date": "2026-11-25",
+      "publishedAt": "2026-11-25T11:22:11+00:00",
+      "postUrl": "https://t.me/slay_awards/9512",
+      "votes": {
+        "SLAY King": "DangerLyoha",
+        "SLAY Queen": "ByOwl",
+        "Лучший CS-стример": "Deko",
+        "Лучший Dota-стример": "Daxak",
+        "Лучший multigaming-стример": "Ellvi",
+        "NEXT GEN": "Enzzai",
+        "Лучший IRL-стример": "Enzzai",
+        "Проект года на Twitch": "Восхождение на пик Ленина",
+        "Аудитория года": "Enzzai",
+        "Пара года": "Enzzai & Whylollycry",
+        "Завоз года": "У Strogo сгорел ПК от гранат",
+        "Трек года": "Прости я не знаю — SeregaPirat",
+        "Косплеер года": "UraniumRR",
+        "Ютубер года": "Михаил Литвин",
+        "Лучший Minecraft-стример": "Edison",
+        "Человек-мем года": "Gaechka"
       }
     }
   ]
