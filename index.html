@@ -85,6 +85,12 @@
     .voter-list ul{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
     .voter-list li{display:flex;align-items:center;gap:7px;padding:5px 8px;border:1px solid rgba(255,255,255,.075);border-radius:8px;color:#e3e8ef;background:rgba(255,255,255,.035);font-size:10px}
     .overall-category-votes li{justify-content:space-between;gap:12px;flex:1 1 210px;min-width:0}.overall-category-votes strong{color:var(--orange-bright);font-variant-numeric:tabular-nums;white-space:nowrap}
+    .overall-category-votes>ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));align-items:start}
+    .overall-category-votes>ul>li{display:block;flex:initial;padding:8px;min-width:0}
+    .overall-category-line{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:10px;font-weight:750}
+    .overall-category-voters{margin:8px 0 0;padding:8px;border-color:rgba(255,121,0,.2);background:rgba(0,0,0,.2)}
+    .overall-category-voters ul{display:flex;flex-wrap:wrap;gap:6px}
+    .overall-category-voters li{display:flex;align-items:center;gap:7px;flex:0 1 auto}
     .voter-list a{color:#ffd2a6;text-decoration:none;font-weight:750}.voter-list a:hover{color:var(--orange-bright);text-decoration:underline}.voter-list time{color:var(--muted);font-size:9px;white-space:nowrap}
     .no-voters{margin:0;color:var(--muted);font-size:11px}
     .featured-row{background:linear-gradient(100deg,#d95700 0%,#ff7900 52%,#ffb14f 100%)!important;box-shadow:inset 3px 0 0 #ffe0bd,inset -1px 0 0 rgba(255,255,255,.28)}
@@ -276,15 +282,30 @@
           if(!name||name.toLocaleLowerCase('ru-RU')==='шорты хантика')return;
           totals[name]=(totals[name]||0)+1;
           if(!categoryTotals[name])categoryTotals[name]={};
-          categoryTotals[name][category]=(categoryTotals[name][category]||0)+1;
+          if(!categoryTotals[name][category])categoryTotals[name][category]={count:0,voters:[]};
+          const group=categoryTotals[name][category];
+          group.count+=1;
+          group.voters.push({
+            author:ballot.author||'Автор не указан',
+            date:ballot.date||'',
+            publishedAt:ballot.publishedAt||'',
+            postUrl:ballot.postUrl||('https://t.me/slay_awards/'+ballot.id)
+          });
         });
       });
       const entries=Object.keys(totals).map(function(name){return {name:name,count:totals[name],categories:categoryTotals[name]};}).sort(function(a,b){return b.count-a.count||a.name.localeCompare(b.name,'ru');});
       ranked(entries);
       document.querySelector('#overallrows').innerHTML=entries.map(function(item,index){
         const listId='overall-nominations-'+index;
-        const categories=Object.keys(item.categories).map(function(category){
-          return '<li><span>'+esc(category)+'</span><strong>'+item.categories[category]+' гол.</strong></li>';
+        const categories=Object.keys(item.categories).map(function(category,categoryIndex){
+          const group=item.categories[category];
+          const voterId='overall-voters-'+index+'-'+categoryIndex;
+          const voters=group.voters.map(function(voter){
+            const href=voter.postUrl||'#';
+            const dateText=formatDateTime(voter.publishedAt,voter.date);
+            return '<li><a href="'+esc(href)+'" target="_blank" rel="noopener noreferrer">'+esc(voter.author)+'</a>'+(dateText?'<time'+(voter.publishedAt?' datetime="'+esc(voter.publishedAt)+'"':'')+'>'+esc(dateText)+'</time>':'')+'</li>';
+          }).join('');
+          return '<li><div class="overall-category-line"><span>'+esc(category)+'</span><strong>'+group.count+' гол.</strong></div><button type="button" class="voter-toggle" aria-expanded="false" aria-controls="'+voterId+'" data-voter-toggle="'+voterId+'">Кто голосовал <span class="toggle-count">'+group.count+'</span></button><div class="voter-list overall-category-voters" id="'+voterId+'" hidden><ul>'+voters+'</ul></div></li>';
         }).join('');
         return '<tr class="'+rowClass(item.name)+'"><td class="place">'+rankLabel(entries,index,true)+'</td><td><div class="candidate-name">'+esc(item.name)+'</div><div class="candidate-tools"><button type="button" class="voter-toggle" aria-expanded="false" aria-controls="'+listId+'" data-voter-toggle="'+listId+'">Номинации <span class="toggle-count">'+Object.keys(item.categories).length+'</span></button></div><div class="voter-list overall-category-votes" id="'+listId+'" hidden><ul>'+categories+'</ul></div></td><td class="num">'+item.count+'</td></tr>';
       }).join('');
