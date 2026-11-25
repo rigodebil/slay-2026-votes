@@ -84,6 +84,7 @@
     .voter-list{margin:9px 0 3px;padding:10px 12px;border:1px solid rgba(255,121,0,.28);border-radius:11px;background:rgba(4,8,14,.5)}
     .voter-list ul{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
     .voter-list li{display:flex;align-items:center;gap:7px;padding:5px 8px;border:1px solid rgba(255,255,255,.075);border-radius:8px;color:#e3e8ef;background:rgba(255,255,255,.035);font-size:10px}
+    .overall-category-votes li{justify-content:space-between;gap:12px;flex:1 1 210px;min-width:0}.overall-category-votes strong{color:var(--orange-bright);font-variant-numeric:tabular-nums;white-space:nowrap}
     .voter-list a{color:#ffd2a6;text-decoration:none;font-weight:750}.voter-list a:hover{color:var(--orange-bright);text-decoration:underline}.voter-list time{color:var(--muted);font-size:9px;white-space:nowrap}
     .no-voters{margin:0;color:var(--muted);font-size:11px}
     .featured-row{background:linear-gradient(100deg,#d95700 0%,#ff7900 52%,#ffb14f 100%)!important;box-shadow:inset 3px 0 0 #ffe0bd,inset -1px 0 0 rgba(255,255,255,.28)}
@@ -268,10 +269,25 @@
     }
     function renderOverall(ballots){
       const totals={};
-      ballots.forEach(function(ballot){personal.forEach(function(category){const name=canonicalCandidate(ballot.votes&&ballot.votes[category],category);if(name&&name.toLocaleLowerCase('ru-RU')!=='шорты хантика')totals[name]=(totals[name]||0)+1;});});
-      const entries=Object.keys(totals).map(function(name){return {name:name,count:totals[name]};}).sort(function(a,b){return b.count-a.count||a.name.localeCompare(b.name,'ru');});
+      const categoryTotals={};
+      ballots.forEach(function(ballot){
+        personal.forEach(function(category){
+          const name=canonicalCandidate(ballot.votes&&ballot.votes[category],category);
+          if(!name||name.toLocaleLowerCase('ru-RU')==='шорты хантика')return;
+          totals[name]=(totals[name]||0)+1;
+          if(!categoryTotals[name])categoryTotals[name]={};
+          categoryTotals[name][category]=(categoryTotals[name][category]||0)+1;
+        });
+      });
+      const entries=Object.keys(totals).map(function(name){return {name:name,count:totals[name],categories:categoryTotals[name]};}).sort(function(a,b){return b.count-a.count||a.name.localeCompare(b.name,'ru');});
       ranked(entries);
-      document.querySelector('#overallrows').innerHTML=entries.map(function(item,index){return '<tr class="'+rowClass(item.name)+'"><td class="place">'+rankLabel(entries,index,true)+'</td><td>'+esc(item.name)+'</td><td class="num">'+item.count+'</td></tr>';}).join('');
+      document.querySelector('#overallrows').innerHTML=entries.map(function(item,index){
+        const listId='overall-nominations-'+index;
+        const categories=Object.keys(item.categories).map(function(category){
+          return '<li><span>'+esc(category)+'</span><strong>'+item.categories[category]+' гол.</strong></li>';
+        }).join('');
+        return '<tr class="'+rowClass(item.name)+'"><td class="place">'+rankLabel(entries,index,true)+'</td><td><div class="candidate-name">'+esc(item.name)+'</div><div class="candidate-tools"><button type="button" class="voter-toggle" aria-expanded="false" aria-controls="'+listId+'" data-voter-toggle="'+listId+'">Номинации <span class="toggle-count">'+Object.keys(item.categories).length+'</span></button></div><div class="voter-list overall-category-votes" id="'+listId+'" hidden><ul>'+categories+'</ul></div></td><td class="num">'+item.count+'</td></tr>';
+      }).join('');
     }
     function renderCategory(category,categoryIndex,ballots){
       const votes={};
@@ -324,6 +340,15 @@
       if(Math.abs(delta)>45)setActiveView(carouselIndex+(delta<0?1:-1));
     },{passive:true});
     document.querySelector('#category-panels').addEventListener('click',function(event){
+      const button=event.target.closest('[data-voter-toggle]');
+      if(!button)return;
+      const list=document.getElementById(button.dataset.voterToggle);
+      if(!list)return;
+      const open=button.getAttribute('aria-expanded')==='true';
+      button.setAttribute('aria-expanded',open?'false':'true');
+      list.hidden=open;
+    });
+    document.querySelector('#overall-panel').addEventListener('click',function(event){
       const button=event.target.closest('[data-voter-toggle]');
       if(!button)return;
       const list=document.getElementById(button.dataset.voterToggle);
