@@ -1,6 +1,6 @@
 {
   "source": "https://t.me/s/slay_awards",
-  "updatedAt": "2026-11-26T12:45:19+00:00",
+  "updatedAt": "2026-11-26T14:10:58+00:00",
   "ballots": [
     {
       "id": "9445",
@@ -897,6 +897,31 @@
         "Ютубер года": "Михаил Литвин",
         "Лучший Minecraft-стример": "Edison",
         "Человек-мем года": "Gaechka"
+      }
+    },
+    {
+      "id": "9517",
+      "author": "DeadP47",
+      "date": "2026-11-26",
+      "publishedAt": "2026-11-26T12:55:30+00:00",
+      "postUrl": "https://t.me/slay_awards/9517",
+      "votes": {
+        "SLAY King": "Bratishkin",
+        "SLAY Queen": "Korya",
+        "Лучший CS-стример": "L1nk1107",
+        "Лучший Dota-стример": "Ramzes",
+        "Лучший multigaming-стример": "WELOVEGAMES",
+        "NEXT GEN": "AslanShukasha",
+        "Лучший IRL-стример": "Leva2k",
+        "Проект года на Twitch": "Турдеамстердам» от Leva2k",
+        "Аудитория года": "VooDooSh",
+        "Пара года": "NelyaRay & Stintik",
+        "Завоз года": "Я клубника ты клубника» под JONY",
+        "Трек года": "Пить / Тупить — Stintik и Bratishkin",
+        "Косплеер года": "AlinaRinRin",
+        "Ютубер года": "Топлес",
+        "Лучший Minecraft-стример": "5opka",
+        "Человек-мем года": "5opka"
       }
     }
   ]
