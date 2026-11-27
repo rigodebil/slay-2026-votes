@@ -1,6 +1,6 @@
 {
   "source": "https://t.me/s/slay_awards",
-  "updatedAt": "2026-11-27T14:00:29+00:00",
+  "updatedAt": "2026-11-27T15:05:40+00:00",
   "ballots": [
     {
       "id": "9445",
@@ -922,6 +922,31 @@
         "Ютубер года": "Топлес",
         "Лучший Minecraft-стример": "5opka",
         "Человек-мем года": "5opka"
+      }
+    },
+    {
+      "id": "9523",
+      "author": "RavshanN",
+      "date": "2026-11-27",
+      "publishedAt": "2026-11-27T14:31:01+00:00",
+      "postUrl": "https://t.me/slay_awards/9523",
+      "votes": {
+        "SLAY King": "RavshanN",
+        "SLAY Queen": "Gaechka",
+        "Лучший CS-стример": "Strogo",
+        "Лучший Dota-стример": "Lizok_ssk",
+        "Лучший multigaming-стример": "DangerLyoha",
+        "NEXT GEN": "Misolo",
+        "Лучший IRL-стример": "Leva2k",
+        "Проект года на Twitch": "BetBoom Медиа Класико",
+        "Аудитория года": "STAYA",
+        "Пара года": "Enzzai & Whylollycry",
+        "Завоз года": "Фейк-комната» RavshanN'a",
+        "Трек года": "Провод — PlohoyParen»",
+        "Косплеер года": "Stoun_m",
+        "Ютубер года": "Михаил Литвин",
+        "Лучший Minecraft-стример": "5opka",
+        "Человек-мем года": "Misolo"
       }
     }
   ]
