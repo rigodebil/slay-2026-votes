@@ -1,6 +1,6 @@
 {
   "source": "https://t.me/s/slay_awards",
-  "updatedAt": "2026-11-28T17:58:26+00:00",
+  "updatedAt": "2026-11-28T18:43:09+00:00",
   "ballots": [
     {
       "id": "9445",
@@ -972,6 +972,31 @@
         "Ютубер года": "Exile",
         "Лучший Minecraft-стример": "Mokrivskyi",
         "Человек-мем года": "Zloy"
+      }
+    },
+    {
+      "id": "9529",
+      "author": "Pch3lk1n",
+      "date": "2026-11-28",
+      "publishedAt": "2026-11-28T18:01:01+00:00",
+      "postUrl": "https://t.me/slay_awards/9529",
+      "votes": {
+        "SLAY King": "Leva2k",
+        "SLAY Queen": "ByOwl",
+        "Лучший CS-стример": "Strogo",
+        "Лучший Dota-стример": "LenaGol0vach",
+        "Лучший multigaming-стример": "WELOVEGAMES",
+        "NEXT GEN": "CleanKill",
+        "Лучший IRL-стример": "Leva2k",
+        "Проект года на Twitch": "BetBoom Медиа Класико",
+        "Аудитория года": "5opka",
+        "Пара года": "ByOwl & Shadowkek",
+        "Завоз года": "Егорик разрушает комнаты стримеров",
+        "Трек года": "Даймондс — Ekatze",
+        "Косплеер года": "Stoun_m",
+        "Ютубер года": "Михаил Литвин",
+        "Лучший Minecraft-стример": "5opka",
+        "Человек-мем года": "Syslov171"
       }
     }
   ]
