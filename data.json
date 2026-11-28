@@ -1,6 +1,6 @@
 {
   "source": "https://t.me/s/slay_awards",
-  "updatedAt": "2026-11-28T09:35:47+00:00",
+  "updatedAt": "2026-11-28T10:34:46+00:00",
   "ballots": [
     {
       "id": "9445",
@@ -947,6 +947,31 @@
         "Ютубер года": "Михаил Литвин",
         "Лучший Minecraft-стример": "5opka",
         "Человек-мем года": "Misolo"
+      }
+    },
+    {
+      "id": "9527",
+      "author": "Irbitka",
+      "date": "2026-11-28",
+      "publishedAt": "2026-11-28T10:02:38+00:00",
+      "postUrl": "https://t.me/slay_awards/9527",
+      "votes": {
+        "SLAY King": "Sasavot",
+        "SLAY Queen": "ByOwl",
+        "Лучший CS-стример": "Skywhywalker",
+        "Лучший Dota-стример": "Rostikfacekid",
+        "Лучший multigaming-стример": "Sasavot",
+        "NEXT GEN": "NarekCR",
+        "Лучший IRL-стример": "Leva2k",
+        "Проект года на Twitch": "Восхождение на пик Ленина",
+        "Аудитория года": "Sasavot",
+        "Пара года": "ByOwl & Shadowkek",
+        "Завоз года": "Gaechka и Strogo косплеят Таноса и Халка",
+        "Трек года": "Прости я не знаю — SeregaPirat",
+        "Косплеер года": "UraniumRR",
+        "Ютубер года": "Exile",
+        "Лучший Minecraft-стример": "Mokrivskyi",
+        "Человек-мем года": "Zloy"
       }
     }
   ]
